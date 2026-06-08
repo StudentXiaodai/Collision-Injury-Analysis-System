@@ -17,15 +17,15 @@
 
 ## 技术栈
 
-| 类别 | 技术 |
-|------|------|
-| 前端框架 | React 19 + TypeScript |
-| 构建工具 | Vite 6 |
-| 样式方案 | Tailwind CSS v4 |
-| 后端服务 | Express.js |
-| 开发运行 | tsx (TypeScript 执行器) |
-| UI 图标 | Lucide React |
-| 动画库 | Motion |
+| 类别    | 技术                    |
+| ----- | --------------------- |
+| 前端框架  | React 19 + TypeScript |
+| 构建工具  | Vite 6                |
+| 样式方案  | Tailwind CSS v4       |
+| 后端服务  | Express.js            |
+| 开发运行  | tsx (TypeScript 执行器)  |
+| UI 图标 | Lucide React          |
+| 动画库   | Motion                |
 
 ## 项目结构
 
@@ -75,17 +75,14 @@ collision-injury-analysis-demo/
    git clone <repository-url>
    cd collision-injury-analysis-demo
    ```
-
 2. **安装依赖**
    ```bash
    npm install
    ```
-
 3. **启动开发服务器**
    ```bash
    npm run dev
    ```
-
 4. **访问应用**
 
    打开浏览器访问 `http://localhost:3000`
@@ -99,13 +96,13 @@ npm start        # 启动生产服务器
 
 ## 可用脚本
 
-| 命令 | 说明 |
-|------|------|
-| `npm run dev` | 启动开发模式（Express + Vite 热更新） |
-| `npm run build` | 构建生产版本 |
-| `npm start` | 运行生产服务器 |
-| `npm run preview` | 预览构建结果 |
-| `npm run lint` | TypeScript 类型检查 |
+| 命令                | 说明                         |
+| ----------------- | -------------------------- |
+| `npm run dev`     | 启动开发模式（Express + Vite 热更新） |
+| `npm run build`   | 构建生产版本                     |
+| `npm start`       | 运行生产服务器                    |
+| `npm run preview` | 预览构建结果                     |
+| `npm run lint`    | TypeScript 类型检查            |
 
 ## API 接口
 
@@ -170,13 +167,13 @@ POST /api/v1/injury-analysis
 
 ## 伤害指标说明
 
-| 指标 | 全称 | 适用部位 | 说明 |
-|------|------|----------|------|
-| HIC15 | Head Injury Criterion (15ms) | 头部 | 头部伤害准则，评估 15ms 窗口内的最大伤害值 |
-| 3ms Clip | 3ms 加速度脉冲 | 头部/胸部 | 持续超过 3ms 的加速度峰值 |
-| Nij | Neck Injury Criterion | 颈部 | 颈部综合损伤指标，结合轴向力和弯矩 |
-| VC | Viscous Criterion | 胸部 | 粘性准则，结合胸部压缩量和压缩速率 |
-| Femur Force | 股骨轴向力 | 股骨 | 股骨承受的轴向压缩力峰值 |
+| 指标          | 全称                           | 适用部位  | 说明                       |
+| ----------- | ---------------------------- | ----- | ------------------------ |
+| HIC15       | Head Injury Criterion (15ms) | 头部    | 头部伤害准则，评估 15ms 窗口内的最大伤害值 |
+| 3ms Clip    | 3ms 加速度脉冲                    | 头部/胸部 | 持续超过 3ms 的加速度峰值          |
+| Nij         | Neck Injury Criterion        | 颈部    | 颈部综合损伤指标，结合轴向力和弯矩        |
+| VC          | Viscous Criterion            | 胸部    | 粘性准则，结合胸部压缩量和压缩速率        |
+| Femur Force | 股骨轴向力                        | 股骨    | 股骨承受的轴向压缩力峰值             |
 
 ## 使用流程
 
