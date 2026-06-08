@@ -1,0 +1,24 @@
+{
+  "mode": "vehicle_pulse_proxy",
+  "occupant_model": "50th_percentile_male",
+  "scenario": {
+    "collision_type": "side",
+    "impact_side": "left",
+    "vehicle_speed_kph": 50,
+    "delta_v_kph": 32,
+    "pdof_deg": 90
+  },
+  "signals": {
+    "time_ms": [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+    "accel_g": [0, -2, -5, -10, -14, -12, -8, -4, -2, -1, 0],
+    "pulse_axis": "y",
+    "intrusion_cm": null,
+    "door_velocity_mps": null,
+    "door_contact_force_n": null
+  },
+  "restraint": {
+    "belted": true,
+    "belt_type": "lap_shoulder",
+    "side_airbag_deployed": true
+  }
+}
