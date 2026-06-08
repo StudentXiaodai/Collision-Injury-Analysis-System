@@ -33,7 +33,7 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
       </div>
 
       <div className="relative w-full max-w-[280px] flex justify-center">
-        {/* Render a highly polished, stylized medical-silhouette vector of a driver sitting down */}
+        {/* Render a polished, natural human silhouette of a driver sitting down */}
         <svg
           viewBox="0 0 200 350"
           className="w-full h-[320px] select-none"
@@ -68,39 +68,38 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
           {/* Base shadow glow */}
           <ellipse cx="100" cy="330" rx="60" ry="10" fill="url(#shadowGlow)" />
 
-          {/* 1. HEAD Region */}
+          {/* 1. HEAD Region - More natural head shape */}
           <g
             id="heatmap-head"
-            className="cursor-pointer transition-all duration-300 hover:scale-[1.02] origin-[125px_50px]"
+            className="cursor-pointer transition-all duration-300 hover:scale-[1.02] origin-[120px_45px]"
             onClick={() => onSelectRegion(selectedRegionId === "head" ? null : "head")}
           >
             <title>HEAD: {getRegionLevel("head")}</title>
-            {/* Draw sitting head profile facing left */}
             <path
-              d="M 125,25 
-                 C 112,23 98,28 94,42 
-                 C 92,48 93,54 86,58
-                 C 82,60 81,64 86,66
-                 C 90,67 95,65 98,69
-                 C 102,74 115,75 125,72
-                 C 134,69 135,55 136,45
-                 C 137,35 133,26 125,25 Z"
+              d="M 125,20 
+                 C 110,18 95,25 88,40 
+                 C 84,50 86,60 88,70
+                 C 95,78 110,80 125,78
+                 C 138,76 145,60 143,42
+                 C 141,28 135,22 125,20 Z"
               fill={getRegionColor("head")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "head" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
               }`}
             />
+            {/* Simple eye for better human look */}
+            <circle cx="98" cy="45" r="2.5" fill="#000000" />
           </g>
 
-          {/* 2. NECK Region */}
+          {/* 2. NECK Region - More natural neck shape */}
           <g
             id="heatmap-neck"
-            className="cursor-pointer transition-all duration-300 origin-[118px_82px]"
+            className="cursor-pointer transition-all duration-300 origin-[115px_85px]"
             onClick={() => onSelectRegion(selectedRegionId === "neck" ? null : "neck")}
           >
             <title>NECK: {getRegionLevel("neck")}</title>
             <path
-              d="M 112,72 L 126,71 L 123,94 L 111,92 Z"
+              d="M 108,78 L 122,78 L 120,98 L 110,98 Z"
               fill={getRegionColor("neck")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "neck" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -108,21 +107,21 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
             />
           </g>
 
-          {/* 3. CHEST / THORAX Region */}
+          {/* 3. CHEST / THORAX Region - More natural chest shape */}
           <g
             id="heatmap-chest"
-            className="cursor-pointer transition-all duration-300 origin-[115px_145px]"
+            className="cursor-pointer transition-all duration-300 origin-[115px_140px]"
             onClick={() => onSelectRegion(selectedRegionId === "chest" ? null : "chest")}
           >
             <title>CHEST: {getRegionLevel("chest")}</title>
             <path
-              d="M 111,92 
-                 Q 90,105 85,128 
-                 Q 80,150 82,175
-                 L 115,185
-                 Q 125,185 126,170
-                 L 128,110
-                 Q 125,93 111,92 Z"
+              d="M 105,98 
+                 Q 90,102 82,120 
+                 Q 78,140 80,160
+                 L 110,165
+                 Q 125,160 128,140
+                 L 128,115
+                 Q 125,102 105,98 Z"
               fill={getRegionColor("chest")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "chest" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -130,19 +129,19 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
             />
           </g>
 
-          {/* 4. ABDOMEN Region */}
+          {/* 4. ABDOMEN Region - More natural abdomen shape */}
           <g
             id="heatmap-abdomen"
-            className="cursor-pointer transition-all duration-300 origin-[110px_205px]"
+            className="cursor-pointer transition-all duration-300 origin-[108px_195px]"
             onClick={() => onSelectRegion(selectedRegionId === "abdomen" ? null : "abdomen")}
           >
             <title>ABDOMEN: {getRegionLevel("abdomen")}</title>
             <path
-              d="M 82,175 
-                 Q 80,195 86,215 
-                 L 118,218 
-                 Q 125,200 125,185 
-                 L 115,185 Z"
+              d="M 80,160 
+                 Q 78,185 84,205 
+                 L 115,208 
+                 Q 122,190 122,165 
+                 L 110,165 Z"
               fill={getRegionColor("abdomen")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "abdomen" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -150,18 +149,18 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
             />
           </g>
 
-          {/* 5. PELVIS Region */}
+          {/* 5. PELVIS Region - More natural pelvis shape */}
           <g
             id="heatmap-pelvis"
-            className="cursor-pointer transition-all duration-300 origin-[105px_240px]"
+            className="cursor-pointer transition-all duration-300 origin-[102px_235px]"
             onClick={() => onSelectRegion(selectedRegionId === "pelvis" ? null : "pelvis")}
           >
             <title>PELVIS: {getRegionLevel("pelvis")}</title>
             <path
-              d="M 86,215 
-                 Q 92,250 80,265 
-                 L 116,268 
-                 Q 126,245 118,218 Z"
+              d="M 84,205 
+                 Q 88,235 78,250 
+                 L 118,252 
+                 Q 125,232 115,208 Z"
               fill={getRegionColor("pelvis")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "pelvis" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -169,20 +168,19 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
             />
           </g>
 
-          {/* 6. LEFT FEMUR / THIGH Region */}
+          {/* 6. LEFT FEMUR / THIGH Region - More natural thigh shape */}
           <g
             id="heatmap-left_femur"
-            className="cursor-pointer transition-all duration-300 origin-[65px_275px]"
+            className="cursor-pointer transition-all duration-300 origin-[68px_280px]"
             onClick={() => onSelectRegion(selectedRegionId === "left_femur" ? null : "left_femur")}
           >
             <title>LEFT FEMUR: {getRegionLevel("left_femur")}</title>
-            {/* Thigh extending forward left-down towards knee */}
             <path
-              d="M 80,265
-                 C 68,268 45,264 35,275
-                 C 28,284 32,295 42,294
-                 C 55,293 88,290 116,268
-                 L 116,268 Z"
+              d="M 78,250
+                 C 62,255 48,260 38,275
+                 C 32,285 35,295 45,298
+                 C 58,300 90,295 118,252
+                 L 118,252 Z"
               fill={getRegionColor("left_femur")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "left_femur" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -190,19 +188,18 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
             />
           </g>
 
-          {/* 7. RIGHT FEMUR / THIGH Region */}
+          {/* 7. RIGHT FEMUR / THIGH Region - More natural thigh shape */}
           <g
             id="heatmap-right_femur"
-            className="cursor-pointer transition-all duration-300 origin-[55px_290px]"
+            className="cursor-pointer transition-all duration-300 origin-[60px_295px]"
             onClick={() => onSelectRegion(selectedRegionId === "right_femur" ? null : "right_femur")}
           >
             <title>RIGHT FEMUR: {getRegionLevel("right_femur")}</title>
-            {/* Secondary offset thigh for depth */}
             <path
-              d="M 75,271
-                 C 61,274 42,271 31,284
-                 C 25,294 30,305 40,303
-                 C 54,302 82,298 108,272 Z"
+              d="M 72,258
+                 C 56,263 42,268 32,283
+                 C 26,293 28,305 38,308
+                 C 52,310 84,305 110,260 Z"
               fill={getRegionColor("right_femur")}
               className={`transition-all duration-300 ${
                 selectedRegionId === "right_femur" ? "stroke-black stroke-4 scale-103 filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]" : "stroke-black hover:stroke-black hover:stroke-3"
@@ -213,20 +210,16 @@ export function HeatmapBody({ regions, selectedRegionId, onSelectRegion }: Heatm
 
           {/* Left leg lower calf (static decorative, completes visual sanity) */}
           <path
-            d="M 35,275 L 26,325 Q 24,332 18,331 Q 12,330 14,320 L 22,275 Z"
+            d="M 38,275 L 30,325 Q 28,332 22,331 Q 16,330 18,320 L 26,275 Z"
             fill="#e2e8f0"
             stroke="#000000"
             strokeWidth="1.5"
             opacity="0.8"
           />
 
-          {/* Decorative body system wire connectors */}
-          <circle cx="114" cy="46" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
-          <circle cx="118" cy="82" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
-          <circle cx="106" cy="140" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
-          <circle cx="102" cy="198" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
-          <circle cx="98" cy="242" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
-          <circle cx="56" cy="278" r="3" fill="#ffffff" stroke="#000000" strokeWidth="1.5" />
+          {/* Simple nose and mouth for better human appearance */}
+          <path d="M 92,52 Q 90,56 94,58" fill="none" stroke="#000000" strokeWidth="1.2" />
+          <path d="M 90,62 Q 95,66 100,62" fill="none" stroke="#000000" strokeWidth="1" />
         </svg>
       </div>
 

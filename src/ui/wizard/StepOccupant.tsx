@@ -135,7 +135,7 @@ export function StepOccupant({ collisionType, restraint, onChangeRestraint }: St
                     </label>
                     <select
                       title="织带限力泄油阀阈值"
-                      value={restraint.load_limiter_kN || 4.0}
+                      value={(restraint.load_limiter_kN || 4.0).toFixed(1)}
                       onChange={(e) => updateField("load_limiter_kN", parseFloat(e.target.value) || 4.0)}
                       className="bg-white border-2 border-black p-2.5 text-xs font-mono font-black text-slate-900 outline-none focus:border-blue-500"
                     >
