@@ -137,6 +137,15 @@ export function solveFrontalProxy(
   const belted = restraint.belted;
   const airbag = restraint.frontal_airbag_deployed !== false; // defaults to true if omitted but belted
   const load_limiter = restraint.load_limiter_kN ? restraint.load_limiter_kN * 1000 : 4000; // default 4 kN limit
+  const pretensioner = restraint.pretensioner !== false; // 预紧器默认开启，减少安全带初始松弛
+  const seatPos = restraint.seat_track_position || "mid"; // 座椅位置：front/mid/rear
+
+  // 根据座椅位置调整乘员与转向管柱/仪表板的初始间隙
+  // 前置座椅：乘员更靠近前方，间隙较小
+  // 中置座椅：标准间隙
+  // 后置座椅：乘员远离前方，间隙较大
+  const seatOffsetMap = { front: -0.05, mid: 0.0, rear: 0.05 };
+  const seatOffset = seatOffsetMap[seatPos as keyof typeof seatOffsetMap] || 0;
 
   for (let i = 1; i < numSteps; i++) {
     const dt = timeS[i] - timeS[i - 1];
@@ -147,12 +156,16 @@ export function solveFrontalProxy(
     // 1. Thorax dynamics
     let F_belt = 0;
     if (belted) {
-      const delta_belt = Math.max(0, x_th - params.s_belt);
+      // 预紧器效果：减少安全带初始松弛量（s_belt 从 0.03m 降低到 0.01m）
+      const effectiveSlack = pretensioner ? params.s_belt * 0.33 : params.s_belt;
+      const delta_belt = Math.max(0, x_th - effectiveSlack);
       F_belt = params.k_belt * delta_belt + (delta_belt > 0 ? params.c_belt * v_th : 0);
       F_belt = Math.min(F_belt, load_limiter);
     } else {
       // Unbelted occupant travels forward and contacts car interiors
-      const delta_interior = Math.max(0, x_th - 0.40); // hits interior/dashboard after 40cm
+      // 座椅位置影响未系安全带时乘员与内饰的接触距离
+      const interiorContactDist = 0.40 + seatOffset; // 前置更近(0.35m)，后置更远(0.45m)
+      const delta_interior = Math.max(0, x_th - interiorContactDist);
       F_belt = params.k_belt * 5.0 * delta_interior + (delta_interior > 0 ? params.c_belt * 2.0 * v_th : 0);
     }
 
@@ -170,11 +183,15 @@ export function solveFrontalProxy(
     // 2. Head dynamics
     let F_airbag = 0;
     if (airbag) {
-      const delta_bag = Math.max(0, x_hd - params.g_airbag);
+      // 座椅位置影响气囊引爆后与头部的接触间隙
+      const effectiveAirbagGap = params.g_airbag + seatOffset * 0.5; // 座椅位置对气囊间隙的影响减半
+      const delta_bag = Math.max(0, x_hd - effectiveAirbagGap);
       F_airbag = params.k_airbag * Math.pow(delta_bag, params.n) + (delta_bag > 0 ? params.c_airbag * v_hd : 0);
     } else {
       // Unshielded head hits windshield structure after 50cm
-      const delta_windshield = Math.max(0, x_hd - 0.48);
+      // 座椅位置影响头部与挡风玻璃的接触距离
+      const windshieldDist = 0.48 + seatOffset;
+      const delta_windshield = Math.max(0, x_hd - windshieldDist);
       F_airbag = params.k_airbag * 8.0 * Math.pow(delta_windshield, params.n) + (delta_windshield > 0 ? params.c_airbag * 3.0 * v_hd : 0);
     }
 
@@ -199,15 +216,20 @@ export function solveFrontalProxy(
     // 3. Pelvis/Femur dynamics
     let F_lap = 0;
     if (belted) {
-      const delta_lap = Math.max(0, x_pl - params.s_belt);
+      // 预紧器同样减少腰部安全带初始松弛
+      const effectiveLapSlack = pretensioner ? params.s_belt * 0.33 : params.s_belt;
+      const delta_lap = Math.max(0, x_pl - effectiveLapSlack);
       F_lap = params.k_belt * 0.4 * delta_lap + (delta_lap > 0 ? params.c_belt * 0.5 * v_pl : 0);
     }
 
-    // Knee contact with lower dashboard
-    const delta_knee_l = Math.max(0, x_pl - params.g_knee_left);
+    // 座椅位置影响膝盖与仪表板的接触间隙
+    // 前置座椅膝盖更早接触，后置座椅膝盖接触距离更远
+    const kneeGapLeft = params.g_knee_left + seatOffset;
+    const kneeGapRight = params.g_knee_right + seatOffset;
+    const delta_knee_l = Math.max(0, x_pl - kneeGapLeft);
     const F_f_left = params.k_femur_left * delta_knee_l + (delta_knee_l > 0 ? 500 * v_pl : 0);
 
-    const delta_knee_r = Math.max(0, x_pl - params.g_knee_right);
+    const delta_knee_r = Math.max(0, x_pl - kneeGapRight);
     const F_f_right = params.k_femur_right * delta_knee_r + (delta_knee_r > 0 ? 500 * v_pl : 0);
 
     const a_pl_rel = av - (F_lap + F_f_left + F_f_right) / params.m_pelvis;

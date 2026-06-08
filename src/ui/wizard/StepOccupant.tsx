@@ -19,6 +19,14 @@ export function StepOccupant({ collisionType, restraint, onChangeRestraint }: St
     });
   };
 
+  // 同时更新多个字段的辅助函数（避免连续调用 updateField 导致状态覆盖）
+  const updateFields = (updates: Partial<RestraintConfig>) => {
+    onChangeRestraint({
+      ...restraint,
+      ...updates,
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-left py-1">
@@ -77,10 +85,7 @@ export function StepOccupant({ collisionType, restraint, onChangeRestraint }: St
                 <div className="flex items-center gap-3 mt-2">
                   <button
                     type="button"
-                    onClick={() => {
-                      updateField("belted", true);
-                      updateField("belt_type", "lap_shoulder");
-                    }}
+                    onClick={() => updateFields({ belted: true, belt_type: "lap_shoulder" })}
                     className={`px-3.5 py-2 border-2 text-xs font-display font-black transition-all ${
                       restraint.belted
                         ? "bg-emerald-300 border-black text-black shadow-[2.5px_2.5px_0px_0px_rgba(0,0,0,1)]"
@@ -91,10 +96,7 @@ export function StepOccupant({ collisionType, restraint, onChangeRestraint }: St
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      updateField("belted", false);
-                      updateField("belt_type", "none");
-                    }}
+                    onClick={() => updateFields({ belted: false, belt_type: "none" })}
                     className={`px-3.5 py-2 border-2 text-xs font-display font-black transition-all ${
                       !restraint.belted
                         ? "bg-rose-300 border-black text-black shadow-[2.5px_2.5px_0px_0px_rgba(0,0,0,1)]"

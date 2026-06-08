@@ -121,7 +121,7 @@ async function startServer() {
   app.listen(PORT, "0.0.0.0", () => {
     console.log(`====================================================`);
     console.log(`Collision Injury Analysis Server is running successfully.`);
-    console.log(`Local and ingress routing bound: http://0.0.0.0:${PORT}`);
+    console.log(`Local and ingress routing bound: http://localhost:${PORT}`);
     console.log(`====================================================`);
   });
 }

@@ -169,11 +169,11 @@ export default function App() {
 
           <div className="flex items-center gap-4">
             <div className="text-right hidden sm:block">
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">DEMO MODEL RUN</p>
+              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Design by StuXiaodai</p>
               <p className="text-[9px] text-slate-400 font-mono">STATUS: ONLINE / STABLE</p>
             </div>
             <div className="w-9 h-9 rounded-full bg-yellow-300 text-black border-2 border-black flex items-center justify-center font-mono font-black text-xs shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] select-none">
-              AC
+              DSL
             </div>
           </div>
         </div>
